@@ -4,208 +4,334 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kaus Lab</title>
+<meta name="description" content="Kaus Lab: o laboratório de Sara Ribikauskas para projetos pessoais, estudo e freelas.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Martian+Mono:wght@300..600&display=swap">
 <style>
-:root{
-  --musgo-0:#151A10; --musgo-1:#1E2517; --musgo-2:#2A3320;
-  --linha:#9AA374; --cobre:#C8834F; --cobre-2:#E0A374;
-  --papel:#F2EFE8; --muted:#A9A89A;
-  --display:"Archivo","Arial Black",sans-serif;
-  --mono:"Martian Mono",ui-monospace,monospace;
-}
+:root{--musgo-0:#11150D;--musgo-1:#1B2115;--musgo:#5B6A3C;--linha:#9AA374;--cobre:#C8834F;--oxido:#A8382A;--papel:#F2EFE8;--muted:#A9A89A;
+  --display:"Archivo","Arial Black",sans-serif;--mono:"Martian Mono",ui-monospace,monospace}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{overflow-x:clip}
-body{background:var(--musgo-1);color:var(--papel);font:400 13px/1.6 var(--mono);overflow-x:hidden}
+body{background:var(--musgo-0);color:var(--papel);font:400 13px/1.6 var(--mono)}
 .d{font-family:var(--display);font-weight:850;font-stretch:118%;text-transform:uppercase;letter-spacing:-.045em}
 .lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 
-/* prancha */
-.sheet{position:relative;min-height:100vh;padding:28px clamp(16px,4vw,56px);display:grid;grid-template-rows:auto 1fr auto auto;grid-template-columns:minmax(0,1fr);gap:40px;isolation:isolate;
+.hero{position:relative;height:100svh;min-height:680px;overflow:hidden;padding:28px clamp(16px,4vw,56px);
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto 1fr auto;column-gap:40px;
   background:
-    radial-gradient(ellipse at 75% 40%,var(--musgo-2) 0,transparent 60%),
-    var(--musgo-1)}
-.sheet::before{content:"";position:absolute;inset:0;z-index:-1;opacity:.09;
-  background-image:
-    linear-gradient(var(--linha) 1px,transparent 1px),linear-gradient(90deg,var(--linha) 1px,transparent 1px),
-    linear-gradient(var(--linha) 1px,transparent 1px),linear-gradient(90deg,var(--linha) 1px,transparent 1px);
-  background-size:120px 120px,120px 120px,24px 24px,24px 24px;
-  mask-image:linear-gradient(transparent,#000 15%,#000 80%,transparent)}
-.construct{position:absolute;inset:0;z-index:-1;width:100%;height:100%;pointer-events:none}
-.reg{position:absolute;width:22px;height:22px;opacity:.6}
-.reg::before,.reg::after{content:"";position:absolute;background:var(--linha)}
-.reg::before{left:50%;top:0;width:1px;height:100%}.reg::after{top:50%;left:0;height:1px;width:100%}
-.reg.tl{top:10px;left:10px}.reg.tr{top:10px;right:10px}.reg.bl{bottom:10px;left:10px}.reg.br{bottom:10px;right:10px}
+    radial-gradient(40% 50% at 70% 48%,rgba(168,56,42,.55),transparent 70%),
+    radial-gradient(30% 35% at 82% 30%,rgba(200,131,79,.35),transparent 70%),
+    radial-gradient(60% 70% at 20% 100%,rgba(91,106,60,.45),transparent 70%),
+    linear-gradient(160deg,var(--musgo-1),var(--musgo-0) 70%)}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.08;
+  background-image:linear-gradient(var(--linha) 1px,transparent 1px),linear-gradient(90deg,var(--linha) 1px,transparent 1px);
+  background-size:24px 24px;mask-image:radial-gradient(70% 70% at 60% 50%,#000,transparent)}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.18;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-/* topo */
-header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(154,163,116,.25);padding-bottom:14px}
-.brand{display:flex;gap:12px;align-items:center}
-.mini{border:2px solid var(--papel);width:34px;height:34px;display:grid;place-items:center;font-size:15px}
+header{grid-column:1/-1;position:relative;z-index:3;display:flex;justify-content:space-between;border-bottom:1px solid rgba(154,163,116,.25);padding-bottom:14px}
 header a{color:var(--papel);text-decoration:none}
-header a:hover{color:var(--cobre)}
 
-/* hero */
-.hero{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);align-items:center;gap:40px}
-h1{font-size:clamp(40px,6.4vw,120px);line-height:.86;margin:18px 0 28px}
-h1 em{font-style:normal;color:var(--cobre)}
-.lead{max-width:44ch;color:#D9D6CC}
-.ks{position:relative;justify-self:center;width:min(380px,80vw);aspect-ratio:1}
-.ks-tile{position:absolute;inset:14%;border:4px solid var(--papel);padding:16px;display:flex;flex-direction:column;justify-content:space-between;background:var(--musgo-1)}
-.ks-tile .sym{font-size:clamp(90px,11vw,150px);line-height:.78;text-transform:none;color:var(--papel)}
-.ks-tile .row{display:flex;justify-content:space-between}
-.ks-dot{position:absolute;right:14%;top:14%;width:14px;height:14px;background:var(--cobre);transform:translate(50%,-50%)}
-.ks svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.callout{font-family:var(--mono);font-weight:500;fill:var(--linha);letter-spacing:.08em}
+.stage{position:absolute;z-index:1;left:62%;top:47%;width:min(84vh,58vw);aspect-ratio:1;transform:translate(-50%,-50%)}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y}
+.stage svg{position:absolute;inset:-12%;width:124%;height:124%;pointer-events:none}
+.stage .tick{position:absolute;font-size:10px;letter-spacing:.08em;color:var(--linha)}
 
-/* tabela */
-.table{display:grid;grid-template-columns:repeat(2,1fr);border:3px solid var(--papel)}
-.el{position:relative;padding:16px 18px 18px;min-height:190px;display:flex;flex-direction:column;justify-content:space-between;color:var(--papel);text-decoration:none;border-right:1px solid rgba(242,239,232,.35);transition:background .35s,color .35s}
-.el:last-child{border-right:0}
-.el .sym{font-size:72px;line-height:.8;text-transform:none}
-.el .top,.el .bot{display:flex;justify-content:space-between;align-items:baseline}
-.el .arrow{transition:transform .35s}
-a.el:hover{background:var(--cobre);color:var(--musgo-0)}
-a.el:hover .lbl{color:var(--musgo-0)}
-a.el:hover .arrow{transform:translate(4px,-4px)}
-.el.soon{color:var(--muted);background:repeating-linear-gradient(135deg,transparent 0 9px,rgba(154,163,116,.08) 9px 10px)}
-.el.soon .sym{-webkit-text-stroke:1.5px var(--muted);color:transparent}
+.copy{grid-column:1;grid-row:3;position:relative;z-index:2;align-self:end}
+h1{font-size:clamp(40px,5.2vw,96px);line-height:.86;margin:16px 0 22px}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--cobre),var(--oxido));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{max-width:42ch;color:#D9D6CC}
 
-.el .mid{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
-.el .desc{max-width:34ch;font-size:12px;color:#D9D6CC;transition:color .35s}
-a.el:hover .desc{color:var(--musgo-0)}
+.cards{grid-column:2;grid-row:3;position:relative;z-index:2;align-self:end;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{position:relative;display:flex;flex-direction:column;gap:18px;padding:16px;color:var(--papel);text-decoration:none;overflow:hidden;
+  background:linear-gradient(150deg,rgba(242,239,232,.14),rgba(242,239,232,.03));border:1px solid rgba(242,239,232,.2);
+  backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);transition:border-color .4s,transform .4s}
+.card::before{content:"";position:absolute;inset:0;opacity:0;transition:opacity .5s;background:var(--g)}
+.card>*{position:relative}
+.card .row{display:flex;justify-content:space-between;align-items:baseline}
+.card b{font:850 44px/.8 var(--display);font-stretch:118%;letter-spacing:-.05em}
+.card .arrow{transition:transform .4s}
+.card:hover{border-color:rgba(242,239,232,.5);transform:translateY(-4px)}
+.card:hover::before{opacity:.55}
+.card:hover .arrow{transform:translate(4px,-4px)}
+.card .sw{height:3px;background:var(--g)}
+#pf{--g:linear-gradient(90deg,var(--musgo),var(--cobre))}
+#mu{--g:linear-gradient(90deg,var(--cobre),var(--oxido))}
 
-/* pranchas 02 e 03 */
-.sheet.alt{background:var(--musgo-0);grid-template-rows:auto auto auto;min-height:auto;gap:72px;padding-bottom:72px}
-.sheet:not(.alt)#contato{min-height:64vh;grid-template-rows:auto 1fr auto}
-.about{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:48px;align-items:end}
-h2{font-size:clamp(40px,6vw,96px);line-height:.88}
-h2 em,.mail em{font-style:normal;color:var(--cobre)}
-.txt p+p{margin-top:14px}.txt{color:#D9D6CC;max-width:48ch}
-.method{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px dashed var(--linha);position:relative}
-.method li{position:relative;padding:28px 24px 0 0}
-.method li::before{content:"";position:absolute;top:-6px;left:0;width:11px;height:11px;border:1px solid var(--linha);background:var(--musgo-0)}
-.method li:last-child::before{background:var(--cobre);border-color:var(--cobre)}
-.method b{display:block;font-size:clamp(22px,2.4vw,32px);margin:10px 0 8px;letter-spacing:-.03em}
-.method p{color:var(--muted);font-size:12px;max-width:30ch}
-.contact{align-self:center;display:flex;flex-direction:column;gap:22px}
-.mail{color:var(--papel);text-decoration:none;font-size:clamp(28px,5.6vw,88px);line-height:.9;text-transform:none;word-break:break-all}
-.mail:hover{color:var(--cobre)}
+@media (max-width:820px){
+  .hero{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto auto;row-gap:22px;height:auto;min-height:100svh;
+    background:
+      radial-gradient(70% 35% at 50% 28%,rgba(168,56,42,.55),transparent 70%),
+      radial-gradient(50% 25% at 70% 18%,rgba(200,131,79,.35),transparent 70%),
+      linear-gradient(170deg,var(--musgo-1),var(--musgo-0) 70%)}
+  .stage{position:relative;left:auto;top:auto;transform:none;width:min(78vw,420px);justify-self:center;grid-row:2;margin:28px 0 12px}
+  .copy{grid-row:3}.cards{grid-column:1;grid-row:4}
+  .card b{font-size:36px}
+}
+
+/* ===== seções ===== */
+html{scroll-behavior:smooth}
+.sec{position:relative;padding:96px clamp(16px,4vw,56px);overflow:hidden}
+.sec-h{display:flex;justify-content:space-between;border-bottom:1px solid rgba(154,163,116,.25);padding-bottom:14px;margin-bottom:64px}
+h2{font-size:clamp(36px,5vw,84px);line-height:.88}
+h2 em,.big em{font-style:normal;background:linear-gradient(90deg,var(--cobre),var(--oxido));-webkit-background-clip:text;background-clip:text;color:transparent}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
+.sec>*:not(.orb){position:relative;z-index:1}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .9s,transform .9s}
+.rv.in{opacity:1;transform:none}
+
+/* quem sou */
+.who{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:56px;align-items:end}
+.who p{color:#D9D6CC;max-width:52ch}.who p+p{margin-top:14px}
+.path{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);margin-top:80px;border-top:1px dashed var(--linha)}
+.path li{position:relative;padding:26px 20px 0 0}
+.path li::before{content:"";position:absolute;top:-6px;left:0;width:11px;height:11px;border:1px solid var(--linha);background:var(--musgo-0)}
+.path li.now::before{background:linear-gradient(135deg,var(--cobre),var(--oxido));border:0;width:13px;height:13px;top:-7px;box-shadow:0 0 18px var(--oxido)}
+.path b{display:block;font:850 clamp(20px,2.2vw,30px)/1 var(--display);font-stretch:118%;text-transform:uppercase;letter-spacing:-.03em;margin:10px 0 8px}
+.path p{color:var(--muted);font-size:12px;max-width:28ch}
+
+/* por quê */
+.why{list-style:none;border-top:1px solid rgba(242,239,232,.18)}
+.why li{position:relative;display:grid;grid-template-columns:120px minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:baseline;padding:28px 12px;border-bottom:1px solid rgba(242,239,232,.18);overflow:hidden}
+.why li::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(200,131,79,.22),rgba(168,56,42,.12) 60%,transparent);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.why li:hover::before{transform:none}
+.why li>*{position:relative}
+.why .n{font:300 clamp(40px,4.4vw,64px)/1 var(--display);color:var(--muted);transition:color .4s}
+.why li:hover .n{color:var(--cobre)}
+.why b{font:850 clamp(22px,2.6vw,40px)/1 var(--display);font-stretch:118%;text-transform:uppercase;letter-spacing:-.035em}
+.why p{color:#D9D6CC;max-width:44ch}
+
+/* projetos */
+.projs{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.proj{position:relative;min-height:560px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;
+  background:linear-gradient(160deg,rgba(242,239,232,.10),rgba(242,239,232,.02));border:1px solid rgba(242,239,232,.18)}
+.proj .blob{position:absolute;width:min(50%,340px);aspect-ratio:1;right:-4%;top:-6%;background:var(--g);filter:blur(1px);
+  border-radius:42% 58% 63% 37%/45% 38% 62% 55%;animation:morph 14s ease-in-out infinite;transition:transform 1.2s cubic-bezier(.2,.7,.2,1);
+  box-shadow:inset -30px -40px 80px rgba(17,21,13,.55),inset 20px 30px 60px rgba(255,240,225,.35)}
+.proj .blob::after{content:"";position:absolute;inset:8% 30% 55% 18%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,250,240,.7),transparent);filter:blur(6px)}
+.proj:hover .blob{transform:scale(1.12) rotate(18deg)}
+@keyframes morph{0%,100%{border-radius:42% 58% 63% 37%/45% 38% 62% 55%}33%{border-radius:63% 37% 41% 59%/58% 61% 39% 42%}66%{border-radius:37% 63% 52% 48%/38% 52% 48% 62%}}
+.proj .top{display:flex;justify-content:space-between}
+.proj .sym{font:850 clamp(96px,11vw,170px)/.78 var(--display);font-stretch:118%;letter-spacing:-.05em}
+.proj h3{font:850 clamp(26px,2.6vw,40px)/1 var(--display);font-stretch:118%;text-transform:uppercase;letter-spacing:-.035em;margin:18px 0 12px}
+.proj p{color:#D9D6CC;max-width:46ch}
+.proj .meta{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:14px;border-top:1px solid rgba(242,239,232,.18)}
+.pill{font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border:1px solid rgba(242,239,232,.3)}
+.pill i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--cobre);margin-right:8px;animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.25}}
+#pf-sec{--g:linear-gradient(135deg,#8C9A5E,var(--musgo) 35%,var(--cobre) 85%)}
+#mu-sec{--g:linear-gradient(135deg,#E0A374,var(--cobre) 30%,var(--oxido) 80%)}
+
+/* contato */
+.big{display:block;font:850 clamp(30px,6vw,104px)/.9 var(--display);font-stretch:118%;letter-spacing:-.045em;color:var(--papel);text-decoration:none;word-break:break-word;margin:22px 0 32px}
+a.big:hover{color:var(--cobre)}
 .links{list-style:none;display:flex;gap:28px;flex-wrap:wrap}
 .links a{color:var(--papel);text-decoration:none;font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--linha);padding-bottom:4px}
 .links a:hover{color:var(--cobre);border-color:var(--cobre)}
-
-/* selo */
-.selo{display:grid;grid-template-columns:auto 1fr 1fr 1fr auto;border:2px solid rgba(242,239,232,.5)}
+.selo{display:grid;grid-template-columns:auto 1fr 1fr 1fr auto;border:2px solid rgba(242,239,232,.5);margin-top:96px}
 .selo>div{padding:10px 12px;border-right:1px solid rgba(242,239,232,.3);font-size:10px;line-height:1.4}
 .selo>div:last-child{border-right:0}
 .selo b{display:block;font-weight:500;color:var(--papel);font-size:11px}
 .selo span{color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
 
 @media (max-width:820px){
-  .hero{grid-template-columns:minmax(0,1fr)}
-  h1{font-size:10.5vw}
-  .ks{order:-1;width:min(300px,78vw)}
-  .table{grid-template-columns:1fr 1fr}
-  .table{grid-template-columns:1fr}.el{border-right:0;border-bottom:1px solid rgba(242,239,232,.35)}.el:last-child{border-bottom:0}
-  .el .mid{flex-direction:column;align-items:flex-start;gap:14px}
-  .about,.method{grid-template-columns:1fr}.method{gap:28px;border-top:0;border-left:1px dashed var(--linha)}.method li{padding:0 0 0 24px}.method li::before{top:2px;left:-6px}
-  .el{min-height:150px}.el .sym{font-size:56px}
-  .selo{grid-template-columns:1fr 1fr}
-  .selo>div{border-bottom:1px solid rgba(242,239,232,.3)}
-  .hide-m{display:none}
+  .sec{padding:72px 16px}.sec-h{margin-bottom:40px}
+  .who,.projs{grid-template-columns:minmax(0,1fr)}
+  .path{grid-template-columns:1fr;border-top:0;border-left:1px dashed var(--linha);gap:28px;margin-top:56px}
+  .path li{padding:0 0 0 24px}.path li::before{top:2px;left:-6px}.path li.now::before{left:-7px}
+  .why li{grid-template-columns:56px minmax(0,1fr);gap:8px 16px;padding:22px 4px}
+  .why p{grid-column:2}
+  .proj{min-height:480px}
+  .selo{grid-template-columns:1fr 1fr}.selo>div{border-bottom:1px solid rgba(242,239,232,.3)}
 }
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}.proj .blob,.pill i{animation:none}}
 </style>
 </head>
 <body>
-<main class="sheet">
-  <i class="reg tl"></i><i class="reg tr"></i><i class="reg bl"></i><i class="reg br"></i>
-  <svg class="construct" viewBox="0 0 1440 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <g fill="none" stroke="#9AA374" stroke-width="1" stroke-dasharray="3 4" opacity=".35">
-      <circle cx="1080" cy="380" r="330"/><circle cx="1080" cy="380" r="470"/>
-      <line x1="1080" y1="0" x2="1080" y2="1000"/><line x1="0" y1="380" x2="1440" y2="380"/>
-      <line x1="620" y1="0" x2="1440" y2="820"/>
-    </g>
-  </svg>
+<section class="hero">
+  <header><span class="lbl" style="color:var(--papel)">Ks · Kaus Lab</span><span class="lbl">Prancha 01 / 05</span></header>
 
-  <header>
-    <div class="brand"><div class="mini d">Ks</div><span class="lbl" style="color:var(--papel)">Kaus Lab</span></div>
-    <span class="lbl hide-m">Prancha 01 — Hub</span>
-    <a class="lbl" href="#contato" style="color:var(--papel)">Contato ↗</a>
-  </header>
+  <div class="stage" aria-hidden="true">
+    <svg viewBox="0 0 100 100">
+      <g fill="none" stroke="#9AA374" stroke-width=".18">
+        <circle cx="50" cy="50" r="48" stroke-dasharray=".8 1.2" opacity=".6"/>
+        <circle cx="50" cy="50" r="38" opacity=".35"/>
+        <line x1="50" y1="0" x2="50" y2="6"/><line x1="50" y1="94" x2="50" y2="100"/>
+        <line x1="0" y1="50" x2="6" y2="50"/><line x1="94" y1="50" x2="100" y2="50"/>
+      </g>
+      <g fill="#F2EFE8"><circle cx="50" cy="2" r=".7"/><circle cx="98" cy="50" r=".7"/><circle cx="2" cy="50" r=".7"/><circle cx="50" cy="98" r=".7"/></g>
+    </svg>
+    <span class="tick" style="left:56%;top:-9%">Ks — amostra 00</span>
+    <span class="tick" style="right:-8%;top:56%">↻ arraste</span>
+    <canvas id="c"></canvas>
+  </div>
 
-  <section class="hero">
-    <div>
-      <span class="lbl">00 — Apresentação</span>
-      <h1 class="d">Sara<br>Ribi<em>kaus</em>kas</h1>
-      <p class="lead">Design com método de produto. Cada projeto começa com uma hipótese e termina com algo no ar.</p>
-    </div>
-    <div class="ks" aria-hidden="true">
-      <svg viewBox="0 0 100 100">
-        <g fill="none" stroke="#9AA374" stroke-width=".3" stroke-dasharray="1 1.3">
-          <circle cx="50" cy="50" r="48"/>
-          <line x1="14" y1="5" x2="86" y2="5"/><line x1="14" y1="3" x2="14" y2="11"/><line x1="86" y1="3" x2="86" y2="11"/>
-          <line x1="95" y1="14" x2="95" y2="86"/><line x1="93" y1="14" x2="97" y2="14"/><line x1="93" y1="86" x2="97" y2="86"/>
-        </g>
-        <text class="callout" x="50" y="3.2" text-anchor="middle" font-size="2.6">72 × 72</text>
-        <g stroke="#C8834F" stroke-width=".35" fill="none"><line x1="86" y1="14" x2="98" y2="2"/><circle cx="99.5" cy=".5" r="2.2" fill="#C8834F"/></g>
-      </svg>
-      <div class="ks-tile">
-        <div class="row lbl" style="color:var(--papel)"><span>00</span><span>Hub</span></div>
-        <div class="sym d">Ks</div>
-        <div class="row lbl"><span>Kaus Lab</span><span>2026</span></div>
-      </div>
-    </div>
-  </section>
+  <div class="copy">
+    <span class="lbl">00 — Quem escreve</span>
+    <h1 class="d">Sara<br>Ribi<em>kaus</em>kas</h1>
+    <p class="lead">Trabalho entre design, produto e tecnologia. A Kaus Lab é o meu laboratório: onde ideias viram projeto e eu me mantenho em movimento.</p>
+  </div>
 
-  <nav class="table" aria-label="Projetos">
-    <a class="el" href="#portfolio">
-      <div class="top lbl"><span>01</span><span class="arrow">↗</span></div>
-      <div class="mid"><div class="sym d">Pf</div><p class="desc">Cases de web, identidade, estratégia e IA. Cada um com a hipótese, o teste e o resultado.</p></div>
-      <div class="bot"><span>Portfólio</span><span class="lbl">Wb · Id · Es · Ia</span></div>
+  <nav class="cards" aria-label="Projetos">
+    <a class="card" id="pf" href="#pf-sec" data-tone="0">
+      <div class="row lbl"><span>01</span><span class="arrow">↗</span></div>
+      <div class="row"><b>Pf</b><span>Portfólio</span></div>
+      <div class="sw"></div>
     </a>
-    <a class="el" href="#musica">
-      <div class="top lbl"><span>02</span><span class="arrow">↗</span></div>
-      <div class="mid"><div class="sym d">Mu</div><p class="desc">[A DEFINIR] Lançamentos, sons e processo do meu trabalho autoral.</p></div>
-      <div class="bot"><span>Música</span><span class="lbl">Som</span></div>
+    <a class="card" id="mu" href="#mu-sec" data-tone="1">
+      <div class="row lbl"><span>02</span><span class="arrow">↗</span></div>
+      <div class="row"><b>Mu</b><span>Música</span></div>
+      <div class="sw"></div>
     </a>
   </nav>
+</section>
 
-
-</main>
-
-<section class="sheet alt" id="sobre">
-  <i class="reg tl"></i><i class="reg tr"></i>
-  <header><span class="lbl">Prancha 02 — Sobre</span><span class="lbl hide-m">Método</span></header>
-  <div class="about">
-    <h2 class="d">Design com <em>método</em></h2>
-    <div class="txt">
-      <p>Sou Sara Ribikauskas. Trabalho com design como se trabalha com produto: começo por uma hipótese, testo e só considero pronto o que está no ar.</p>
-      <p>Este é o meu hub. Daqui saem os projetos: o estúdio, com os cases, e a música, que é onde experimento sem cliente.</p>
+<section class="sec" id="quem">
+  <div class="orb" style="width:520px;height:520px;left:-180px;top:20%;background:rgba(91,106,60,.45)"></div>
+  <div class="sec-h"><span class="lbl">Prancha 02 / 05 — Quem sou</span><span class="lbl">Trajetória</span></div>
+  <div class="who rv">
+    <h2 class="d">Da produção<br>ao <em>produto</em></h2>
+    <div>
+      <p>Sou formada em Produção Publicitária. Passei por eventos e por acessibilidade antes de chegar à tecnologia, onde estou hoje.</p>
+      <p>No dia a dia, trabalho entre design, gestão de produto e a ponte entre negócio e tecnologia, num papel mais consultivo: entender o problema antes de desenhar a resposta.</p>
     </div>
   </div>
-  <ol class="method">
-    <li><span class="lbl">Etapa 01</span><b class="d">Hipótese</b><p>O problema em uma frase e como saber se deu certo.</p></li>
-    <li><span class="lbl">Etapa 02</span><b class="d">Teste</b><p>Construo a menor versão que responde à pergunta.</p></li>
-    <li><span class="lbl">Etapa 03</span><b class="d">Resultado</b><p>Medido, documentado e no ar.</p></li>
+  <ol class="path rv">
+    <li><span class="lbl">Formação</span><b>Publicidade</b><p>Produção Publicitária: ideia, verba, prazo e entrega.</p></li>
+    <li><span class="lbl">Etapa</span><b>Eventos</b><p>Fazer acontecer no dia, com o que tem.</p></li>
+    <li><span class="lbl">Etapa</span><b>Acessibilidade</b><p>Projetar pensando em quem costuma ficar de fora.</p></li>
+    <li class="now"><span class="lbl">Agora</span><b>Tecnologia</b><p>Design, produto e consultoria entre negócio e tecnologia.</p></li>
   </ol>
 </section>
 
-<section class="sheet" id="contato">
-  <i class="reg bl"></i><i class="reg br"></i>
-  <header><span class="lbl">Prancha 03 — Contato</span></header>
-  <div class="contact">
-    <span class="lbl">Escreva para mim</span>
-    <a class="mail d" href="mailto:contato@seudominio.com">contato@<em>seudominio</em>.com</a>
-    <ul class="links">
-      <li><a href="#">Instagram ↗</a></li><li><a href="#">LinkedIn ↗</a></li><li><a href="#">Spotify ↗</a></li>
-    </ul>
+<section class="sec" id="porque" style="background:var(--musgo-1)">
+  <div class="orb" style="width:620px;height:620px;right:-220px;top:-120px;background:rgba(168,56,42,.35)"></div>
+  <div class="sec-h"><span class="lbl">Prancha 03 / 05 — Por que a Kaus Lab</span><span class="lbl">Motivações</span></div>
+  <h2 class="d rv" style="margin-bottom:56px">Um lugar para<br>não <em>parar</em></h2>
+  <ol class="why rv">
+    <li><span class="n">01</span><b>Insights</b><p>Ideias criativas que aparecem no trabalho e não têm onde ir. Aqui elas ganham forma.</p></li>
+    <li><span class="n">02</span><b>Projetos pessoais</b><p>Coisas que eu quero que existam, mesmo sem cliente e sem briefing.</p></li>
+    <li><span class="n">03</span><b>Freelas</b><p>Poucos e específicos, escolhidos pelo problema que resolvem.</p></li>
+    <li><span class="n">04</span><b>Estudo</b><p>Aprender construindo. Cada projeto é um experimento.</p></li>
+    <li><span class="n">05</span><b>Movimento</b><p>Manter a cabeça ativa e a mão fazendo.</p></li>
+  </ol>
+</section>
+
+<section class="sec" id="projetos">
+  <div class="sec-h"><span class="lbl">Prancha 04 / 05 — Projetos</span><span class="lbl">Elementos ativos: 02</span></div>
+  <div class="projs">
+    <article class="proj rv" id="pf-sec">
+      <div class="blob"></div>
+      <div class="top lbl"><span>01 · Elemento</span><span>Design</span></div>
+      <div>
+        <div class="sym">Pf</div>
+        <h3>Portfólio</h3>
+        <p>Freelas e projetos de design: identidade, web, estratégia e IA. Cada case mostra a hipótese, o teste e o resultado.</p>
+        <div class="meta"><span class="pill"><i></i>Em construção</span><span class="lbl">Wb · Id · Es · Ia</span></div>
+      </div>
+    </article>
+    <article class="proj rv" id="mu-sec">
+      <div class="blob"></div>
+      <div class="top lbl"><span>02 · Elemento</span><span>Hobby</span></div>
+      <div>
+        <div class="sym">Mu</div>
+        <h3>Música</h3>
+        <p>Sempre estudei música por videoaulas e, por alguns meses, com um professor excelente, até precisar parar. O que mais faltou foi uma trilha organizada. Este projeto é essa trilha, construída enquanto eu aprendo.</p>
+        <div class="meta"><span class="pill"><i></i>Em construção</span><span class="lbl">Estudo · Prática</span></div>
+      </div>
+    </article>
   </div>
+</section>
+
+<section class="sec" id="contato" style="background:linear-gradient(180deg,var(--musgo-0),#1A0F0B)">
+  <div class="orb" style="width:700px;height:420px;left:20%;bottom:-260px;background:rgba(168,56,42,.5)"></div>
+  <div class="sec-h"><span class="lbl">Prancha 05 / 05 — Contato</span></div>
+  <span class="lbl">Escreva para mim</span>
+  <a class="big rv" href="mailto:contato@seudominio.com">contato@<em>seudominio</em>.com</a>
+  <ul class="links"><li><a href="#">Instagram ↗</a></li><li><a href="#">LinkedIn ↗</a></li><li><a href="#">Behance ↗</a></li></ul>
   <footer class="selo">
     <div><b class="d" style="font-size:16px">Ks</b></div>
-    <div><span>Projeto</span><b>Hub pessoal</b></div>
+    <div><span>Projeto</span><b>Kaus Lab</b></div>
     <div><span>Autora</span><b>Sara Ribikauskas</b></div>
     <div><span>Rev.</span><b>A — 2026</b></div>
-    <div><span>Folha</span><b>03 / 03</b></div>
+    <div><span>Folha</span><b>05 / 05</b></div>
   </footer>
 </section>
+
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+const canvas=document.getElementById('c');
+const r=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,preserveDrawingBuffer:true});
+r.setPixelRatio(Math.min(devicePixelRatio,2));
+const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(30,1,.1,50);cam.position.z=6.2;
+
+const noise=`
+vec4 perm(vec4 x){return mod(((x*34.)+1.)*x,289.);}
+vec4 tis(vec4 r){return 1.79284291400159-.85373472095314*r;}
+float snoise(vec3 v){const vec2 C=vec2(1./6.,1./3.);const vec4 D=vec4(0.,.5,1.,2.);
+vec3 i=floor(v+dot(v,C.yyy));vec3 x0=v-i+dot(i,C.xxx);vec3 g=step(x0.yzx,x0.xyz);vec3 l=1.-g;vec3 i1=min(g.xyz,l.zxy);vec3 i2=max(g.xyz,l.zxy);
+vec3 x1=x0-i1+C.xxx;vec3 x2=x0-i2+C.yyy;vec3 x3=x0-D.yyy;i=mod(i,289.);
+vec4 p=perm(perm(perm(i.z+vec4(0.,i1.z,i2.z,1.))+i.y+vec4(0.,i1.y,i2.y,1.))+i.x+vec4(0.,i1.x,i2.x,1.));
+float n_=1./7.;vec3 ns=n_*D.wyz-D.xzx;vec4 j=p-49.*floor(p*ns.z*ns.z);vec4 x_=floor(j*ns.z);vec4 y_=floor(j-7.*x_);
+vec4 x=x_*ns.x+ns.yyyy;vec4 y=y_*ns.x+ns.yyyy;vec4 h=1.-abs(x)-abs(y);vec4 b0=vec4(x.xy,y.xy);vec4 b1=vec4(x.zw,y.zw);
+vec4 s0=floor(b0)*2.+1.;vec4 s1=floor(b1)*2.+1.;vec4 sh=-step(h,vec4(0.));vec4 a0=b0.xzyw+s0.xzyw*sh.xxyy;vec4 a1=b1.xzyw+s1.xzyw*sh.zzww;
+vec3 p0=vec3(a0.xy,h.x);vec3 p1=vec3(a0.zw,h.y);vec3 p2=vec3(a1.xy,h.z);vec3 p3=vec3(a1.zw,h.w);
+vec4 norm=tis(vec4(dot(p0,p0),dot(p1,p1),dot(p2,p2),dot(p3,p3)));p0*=norm.x;p1*=norm.y;p2*=norm.z;p3*=norm.w;
+vec4 m=max(.6-vec4(dot(x0,x0),dot(x1,x1),dot(x2,x2),dot(x3,x3)),0.);m=m*m;
+return 42.*dot(m*m,vec4(dot(p0,x0),dot(p1,x1),dot(p2,x2),dot(p3,x3)));}`;
+
+const U={uT:{value:0},uM:{value:new THREE.Vector3(0,0,1)},uPush:{value:0},uTone:{value:.5}};
+const mat=new THREE.ShaderMaterial({uniforms:U,vertexShader:noise+`
+uniform float uT,uPush;uniform vec3 uM;varying vec3 vN,vP;varying float vD;
+float disp(vec3 p){float d=snoise(p*.85+vec3(0.,uT*.2,uT*.14))*.26+snoise(p*1.7-uT*.25)*.05;
+  d+=pow(max(dot(normalize(p),uM),0.),6.)*uPush*.55;return d;}
+vec3 dp(vec3 p){vec3 n=normalize(p);return n*(1.+disp(n));}
+void main(){vec3 p=dp(position);vec3 n=normalize(position);
+  vec3 t=normalize(cross(n,abs(n.y)<.99?vec3(0.,1.,0.):vec3(1.,0.,0.)));vec3 b=cross(n,t);float e=.01;
+  vec3 pt=dp(n+t*e),pb=dp(n+b*e);vN=normalize(normalMatrix*normalize(cross(pt-p,pb-p)));
+  vD=disp(n);vec4 mv=modelViewMatrix*vec4(p,1.);vP=mv.xyz;gl_Position=projectionMatrix*mv;}`,
+fragmentShader:`
+uniform float uTone,uT;varying vec3 vN,vP;varying float vD;
+vec3 musgo=vec3(.16,.2,.11),cobre=vec3(.78,.51,.31),oxido=vec3(.66,.22,.16),papel=vec3(.95,.94,.91);
+void main(){vec3 N=normalize(vN),V=normalize(-vP);float ndv=max(dot(N,V),0.);float fr=pow(1.-ndv,2.2);
+  float g=clamp(N.y*.5+.5+vD*.8,0.,1.);float hx=clamp(N.x*.5+.5+vD*.6,0.,1.);
+  vec3 warm=mix(cobre,oxido,uTone);
+  vec3 base=mix(warm,mix(oxido,cobre,uTone*.6),smoothstep(.3,.8,hx));base=mix(musgo*1.4,base,smoothstep(.1,.6,g));base=mix(base,vec3(.85,.62,.45),smoothstep(.8,1.,g)*.5);
+  vec3 R=reflect(-V,N);
+  float strip=smoothstep(.55,.75,R.y)*smoothstep(1.,.8,R.y);float side=smoothstep(.6,.95,R.x);
+  vec3 env=papel*(strip*1.1+side*.5);
+  vec3 L=normalize(vec3(.5,.8,.6));float sp=pow(max(dot(reflect(-L,N),V),0.),60.);
+  vec3 col=base*(.35+.75*max(dot(N,L),0.))+env*(.25+fr*.9)+papel*sp*1.2+warm*fr*.5;
+  col=mix(col,musgo*.6,smoothstep(.2,1.,-N.y)*.35);
+  gl_FragColor=vec4(pow(col,vec3(.95)),1.);}`});
+const blob=new THREE.Mesh(new THREE.IcosahedronGeometry(1.25,64),mat);scene.add(blob);
+
+function size(){const w=canvas.clientWidth;r.setSize(w,w,false);cam.aspect=1;cam.updateProjectionMatrix()}
+new ResizeObserver(size).observe(canvas);size();
+
+// interação: o objeto incha na direção do cursor; arrastar gira
+let target=new THREE.Vector3(0,0,1),push=0,pushT=0,tone=.5,toneT=.5,rotY=0,vel=.0025,drag=null;
+addEventListener('pointermove',e=>{const b=canvas.getBoundingClientRect();
+  const x=((e.clientX-b.left)/b.width-.5)*2,y=-((e.clientY-b.top)/b.height-.5)*2;const d=Math.hypot(x,y);
+  target.set(x,y,.9).normalize();pushT=d<1.6?1-Math.min(d/1.6,1)*.6:0;
+  if(drag!==null){vel=(e.clientX-drag)*.0006;drag=e.clientX}});
+canvas.addEventListener('pointerdown',e=>{drag=e.clientX});addEventListener('pointerup',()=>{drag=null});
+document.querySelectorAll('.card').forEach(c=>{c.addEventListener('pointerenter',()=>{toneT=+c.dataset.tone;pushT=1});
+  c.addEventListener('pointerleave',()=>{toneT=.5})});
+
+const t0=performance.now();
+let vis=true;new IntersectionObserver(([e])=>{vis=e.isIntersecting}).observe(canvas);
+(function frame(){if(!vis){requestAnimationFrame(frame);return}const t=(performance.now()-t0)/1000;
+  push+=(pushT-push)*.06;tone+=(toneT-tone)*.05;vel+=(.0025-vel)*.02;rotY+=vel;
+  const inv=blob.matrixWorld.clone().invert();U.uM.value.copy(target).transformDirection(inv);
+  U.uT.value=t;U.uPush.value=push;U.uTone.value=tone;
+  blob.rotation.y=rotY;blob.rotation.x=Math.sin(t*.2)*.2;
+  r.render(scene,cam);requestAnimationFrame(frame)})();
+</script>
 </body>
 </html>
