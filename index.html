@@ -57,7 +57,7 @@ h1 em{font-style:normal;color:var(--cobre)}
 .callout{font-family:var(--mono);font-weight:500;fill:var(--linha);letter-spacing:.08em}
 
 /* tabela */
-.table{display:grid;grid-template-columns:repeat(4,1fr);border:3px solid var(--papel)}
+.table{display:grid;grid-template-columns:repeat(2,1fr);border:3px solid var(--papel)}
 .el{position:relative;padding:16px 18px 18px;min-height:190px;display:flex;flex-direction:column;justify-content:space-between;color:var(--papel);text-decoration:none;border-right:1px solid rgba(242,239,232,.35);transition:background .35s,color .35s}
 .el:last-child{border-right:0}
 .el .sym{font-size:72px;line-height:.8;text-transform:none}
@@ -68,6 +68,30 @@ a.el:hover .lbl{color:var(--musgo-0)}
 a.el:hover .arrow{transform:translate(4px,-4px)}
 .el.soon{color:var(--muted);background:repeating-linear-gradient(135deg,transparent 0 9px,rgba(154,163,116,.08) 9px 10px)}
 .el.soon .sym{-webkit-text-stroke:1.5px var(--muted);color:transparent}
+
+.el .mid{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.el .desc{max-width:34ch;font-size:12px;color:#D9D6CC;transition:color .35s}
+a.el:hover .desc{color:var(--musgo-0)}
+
+/* pranchas 02 e 03 */
+.sheet.alt{background:var(--musgo-0);grid-template-rows:auto auto auto;min-height:auto;gap:72px;padding-bottom:72px}
+.sheet:not(.alt)#contato{min-height:64vh;grid-template-rows:auto 1fr auto}
+.about{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:48px;align-items:end}
+h2{font-size:clamp(40px,6vw,96px);line-height:.88}
+h2 em,.mail em{font-style:normal;color:var(--cobre)}
+.txt p+p{margin-top:14px}.txt{color:#D9D6CC;max-width:48ch}
+.method{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px dashed var(--linha);position:relative}
+.method li{position:relative;padding:28px 24px 0 0}
+.method li::before{content:"";position:absolute;top:-6px;left:0;width:11px;height:11px;border:1px solid var(--linha);background:var(--musgo-0)}
+.method li:last-child::before{background:var(--cobre);border-color:var(--cobre)}
+.method b{display:block;font-size:clamp(22px,2.4vw,32px);margin:10px 0 8px;letter-spacing:-.03em}
+.method p{color:var(--muted);font-size:12px;max-width:30ch}
+.contact{align-self:center;display:flex;flex-direction:column;gap:22px}
+.mail{color:var(--papel);text-decoration:none;font-size:clamp(28px,5.6vw,88px);line-height:.9;text-transform:none;word-break:break-all}
+.mail:hover{color:var(--cobre)}
+.links{list-style:none;display:flex;gap:28px;flex-wrap:wrap}
+.links a{color:var(--papel);text-decoration:none;font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--linha);padding-bottom:4px}
+.links a:hover{color:var(--cobre);border-color:var(--cobre)}
 
 /* selo */
 .selo{display:grid;grid-template-columns:auto 1fr 1fr 1fr auto;border:2px solid rgba(242,239,232,.5)}
@@ -81,8 +105,9 @@ a.el:hover .arrow{transform:translate(4px,-4px)}
   h1{font-size:10.5vw}
   .ks{order:-1;width:min(300px,78vw)}
   .table{grid-template-columns:1fr 1fr}
-  .el:nth-child(2){border-right:0}
-  .el:nth-child(-n+2){border-bottom:1px solid rgba(242,239,232,.35)}
+  .table{grid-template-columns:1fr}.el{border-right:0;border-bottom:1px solid rgba(242,239,232,.35)}.el:last-child{border-bottom:0}
+  .el .mid{flex-direction:column;align-items:flex-start;gap:14px}
+  .about,.method{grid-template-columns:1fr}.method{gap:28px;border-top:0;border-left:1px dashed var(--linha)}.method li{padding:0 0 0 24px}.method li::before{top:2px;left:-6px}
   .el{min-height:150px}.el .sym{font-size:56px}
   .selo{grid-template-columns:1fr 1fr}
   .selo>div{border-bottom:1px solid rgba(242,239,232,.3)}
@@ -110,7 +135,7 @@ a.el:hover .arrow{transform:translate(4px,-4px)}
   <section class="hero">
     <div>
       <span class="lbl">00 — Apresentação</span>
-      <h1 class="d">Sara<br><em>Ribi</em>kauskas</h1>
+      <h1 class="d">Sara<br>Ribi<em>kaus</em>kas</h1>
       <p class="lead">Design com método de produto. Cada projeto começa com uma hipótese e termina com algo no ar.</p>
     </div>
     <div class="ks" aria-hidden="true">
@@ -134,33 +159,53 @@ a.el:hover .arrow{transform:translate(4px,-4px)}
   <nav class="table" aria-label="Projetos">
     <a class="el" href="#portfolio">
       <div class="top lbl"><span>01</span><span class="arrow">↗</span></div>
-      <div class="sym d">Pf</div>
-      <div class="bot"><span>Portfólio</span><span class="lbl">Design</span></div>
+      <div class="mid"><div class="sym d">Pf</div><p class="desc">Cases de web, identidade, estratégia e IA. Cada um com a hipótese, o teste e o resultado.</p></div>
+      <div class="bot"><span>Portfólio</span><span class="lbl">Wb · Id · Es · Ia</span></div>
     </a>
     <a class="el" href="#musica">
       <div class="top lbl"><span>02</span><span class="arrow">↗</span></div>
-      <div class="sym d">Mu</div>
+      <div class="mid"><div class="sym d">Mu</div><p class="desc">[A DEFINIR] Lançamentos, sons e processo do meu trabalho autoral.</p></div>
       <div class="bot"><span>Música</span><span class="lbl">Som</span></div>
     </a>
-    <div class="el soon">
-      <div class="top lbl"><span>03</span><span>—</span></div>
-      <div class="sym d">??</div>
-      <div class="bot"><span>Em síntese</span><span class="lbl">Breve</span></div>
-    </div>
-    <div class="el soon">
-      <div class="top lbl"><span>04</span><span>—</span></div>
-      <div class="sym d">??</div>
-      <div class="bot"><span>Hipótese</span><span class="lbl">Breve</span></div>
-    </div>
   </nav>
 
+
+</main>
+
+<section class="sheet alt" id="sobre">
+  <i class="reg tl"></i><i class="reg tr"></i>
+  <header><span class="lbl">Prancha 02 — Sobre</span><span class="lbl hide-m">Método</span></header>
+  <div class="about">
+    <h2 class="d">Design com <em>método</em></h2>
+    <div class="txt">
+      <p>Sou Sara Ribikauskas. Trabalho com design como se trabalha com produto: começo por uma hipótese, testo e só considero pronto o que está no ar.</p>
+      <p>Este é o meu hub. Daqui saem os projetos: o estúdio, com os cases, e a música, que é onde experimento sem cliente.</p>
+    </div>
+  </div>
+  <ol class="method">
+    <li><span class="lbl">Etapa 01</span><b class="d">Hipótese</b><p>O problema em uma frase e como saber se deu certo.</p></li>
+    <li><span class="lbl">Etapa 02</span><b class="d">Teste</b><p>Construo a menor versão que responde à pergunta.</p></li>
+    <li><span class="lbl">Etapa 03</span><b class="d">Resultado</b><p>Medido, documentado e no ar.</p></li>
+  </ol>
+</section>
+
+<section class="sheet" id="contato">
+  <i class="reg bl"></i><i class="reg br"></i>
+  <header><span class="lbl">Prancha 03 — Contato</span></header>
+  <div class="contact">
+    <span class="lbl">Escreva para mim</span>
+    <a class="mail d" href="mailto:contato@seudominio.com">contato@<em>seudominio</em>.com</a>
+    <ul class="links">
+      <li><a href="#">Instagram ↗</a></li><li><a href="#">LinkedIn ↗</a></li><li><a href="#">Spotify ↗</a></li>
+    </ul>
+  </div>
   <footer class="selo">
     <div><b class="d" style="font-size:16px">Ks</b></div>
     <div><span>Projeto</span><b>Hub pessoal</b></div>
     <div><span>Autora</span><b>Sara Ribikauskas</b></div>
     <div><span>Rev.</span><b>A — 2026</b></div>
-    <div><span>Folha</span><b>01 / 01</b></div>
+    <div><span>Folha</span><b>03 / 03</b></div>
   </footer>
-</main>
+</section>
 </body>
 </html>
