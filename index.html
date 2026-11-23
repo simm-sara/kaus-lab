@@ -122,6 +122,21 @@ h2 em,.big em{font-style:normal;background:linear-gradient(90deg,var(--cobre),va
 #mu-sec{--g:linear-gradient(135deg,#E0A374,var(--cobre) 30%,var(--oxido) 80%)}
 
 /* contato */
+.contact{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:end;margin-bottom:40px}
+.contact p{color:#D9D6CC;max-width:46ch;margin-bottom:22px}
+.mail{display:inline-flex;align-items:center;gap:14px;padding:10px 16px 10px 10px;font:500 14px var(--mono);color:var(--papel);cursor:pointer;
+  background:linear-gradient(150deg,rgba(242,239,232,.12),rgba(242,239,232,.03));border:1px solid rgba(242,239,232,.25);backdrop-filter:blur(14px);transition:border-color .3s}
+.mail:hover{border-color:var(--cobre)}
+.mail em{font-style:normal;color:var(--cobre)}
+.el-mini{display:grid;place-items:center;width:34px;height:34px;border:1.5px dashed var(--muted);font:850 13px var(--display);font-stretch:118%;color:var(--muted)}
+.mail.react{animation:shake .5s}
+.mail.react .el-mini{border:0;background:linear-gradient(135deg,var(--cobre),var(--oxido));color:var(--papel);box-shadow:0 0 22px var(--oxido)}
+@keyframes shake{20%{transform:translateX(-4px)}40%{transform:translateX(4px)}60%{transform:translateX(-2px)}80%{transform:translateX(2px)}}
+.toast{position:fixed;left:50%;bottom:24px;z-index:9;transform:translate(-50%,20px);opacity:0;pointer-events:none;padding:12px 18px;font-size:12px;
+  background:linear-gradient(90deg,var(--cobre),var(--oxido));color:var(--papel);transition:opacity .4s,transform .4s;max-width:calc(100vw - 32px)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+body.flash .hero{animation:flash 1.2s}
+@keyframes flash{30%{filter:saturate(1.8) hue-rotate(-12deg) brightness(1.15)}}
 .big{display:block;font:850 clamp(30px,6vw,104px)/.9 var(--display);font-stretch:118%;letter-spacing:-.045em;color:var(--papel);text-decoration:none;word-break:break-word;margin:22px 0 32px}
 a.big:hover{color:var(--cobre)}
 .links{list-style:none;display:flex;gap:28px;flex-wrap:wrap}
@@ -141,6 +156,7 @@ a.big:hover{color:var(--cobre)}
   .why li{grid-template-columns:56px minmax(0,1fr);gap:8px 16px;padding:22px 4px}
   .why p{grid-column:2}
   .proj{min-height:480px}
+  .contact{grid-template-columns:minmax(0,1fr);gap:24px}
   .selo{grid-template-columns:1fr 1fr}.selo>div{border-bottom:1px solid rgba(242,239,232,.3)}
 }
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}.proj .blob,.pill i{animation:none}}
@@ -245,8 +261,17 @@ a.big:hover{color:var(--cobre)}
 <section class="sec" id="contato" style="background:linear-gradient(180deg,var(--musgo-0),#1A0F0B)">
   <div class="orb" style="width:700px;height:420px;left:20%;bottom:-260px;background:rgba(168,56,42,.5)"></div>
   <div class="sec-h"><span class="lbl">Prancha 05 / 05 — Contato</span></div>
-  <span class="lbl">Escreva para mim</span>
-  <a class="big rv" href="mailto:contato@seudominio.com">contato@<em>seudominio</em>.com</a>
+  <div class="contact rv">
+    <h2 class="d">Tem uma<br><em>ideia</em>?</h2>
+    <div>
+      <p>Dúvida, ideia, vontade de trocar ou um projeto em que o meu trabalho possa ajudar: me escreva. Respondo pessoalmente.</p>
+      <button class="mail" id="mail" type="button" aria-live="polite">
+        <span class="el-mini">??</span>
+        <span class="mail-t" id="mailT">sara@<em>em-síntese</em>.lab</span>
+        <span class="lbl mail-h">clique</span>
+      </button>
+    </div>
+  </div>
   <ul class="links"><li><a href="#">Instagram ↗</a></li><li><a href="#">LinkedIn ↗</a></li><li><a href="#">Behance ↗</a></li></ul>
   <footer class="selo">
     <div><b class="d" style="font-size:16px">Ks</b></div>
@@ -260,6 +285,20 @@ a.big:hover{color:var(--cobre)}
 <script>
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+// easter egg: o e-mail ainda está em síntese
+const mail=document.getElementById('mail'),mailT=document.getElementById('mailT'),toast=Object.assign(document.createElement('div'),{className:'toast'});
+document.body.appendChild(toast);
+const say=(t,ms=3200)=>{toast.textContent=t;toast.classList.add('on');clearTimeout(say.t);say.t=setTimeout(()=>toast.classList.remove('on'),ms)};
+const lines=['reação em andamento…','elemento ainda instável','faltam alguns elétrons','dica: digite k-a-u-s'];let hits=0;
+function scramble(final){const ch='KsPfMu01#@%&*';let i=0;const id=setInterval(()=>{
+  mailT.textContent=final.split('').map((c,k)=>k<i?c:ch[Math.random()*ch.length|0]).join('');if(++i>final.length){clearInterval(id)}},28)}
+mail.addEventListener('click',()=>{mail.classList.remove('react');void mail.offsetWidth;mail.classList.add('react');
+  scramble(lines[hits++%lines.length]);setTimeout(()=>{mailT.innerHTML='sara@<em>em-síntese</em>.lab'},2600)});
+let buf='';addEventListener('keydown',e=>{if(e.key.length!==1)return;buf=(buf+e.key.toLowerCase()).slice(-4);
+  if(buf==='kaus'){document.body.classList.add('flash');setTimeout(()=>document.body.classList.remove('flash'),1300);
+    window.kausReact&&window.kausReact();say('Reação descoberta: Ks + você. O e-mail chega em breve.',4200);
+    document.querySelector('.hero').scrollIntoView({behavior:'smooth'})}});
 </script>
 
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
@@ -325,6 +364,7 @@ document.querySelectorAll('.card').forEach(c=>{c.addEventListener('pointerenter'
   c.addEventListener('pointerleave',()=>{toneT=.5})});
 
 const t0=performance.now();
+window.kausReact=()=>{toneT=1;pushT=1.8;setTimeout(()=>{toneT=.5;pushT=0},2600)};
 let vis=true;new IntersectionObserver(([e])=>{vis=e.isIntersecting}).observe(canvas);
 (function frame(){if(!vis){requestAnimationFrame(frame);return}const t=(performance.now()-t0)/1000;
   push+=(pushT-push)*.06;tone+=(toneT-tone)*.05;vel+=(.0025-vel)*.02;rotY+=vel;
