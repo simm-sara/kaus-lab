@@ -6,131 +6,176 @@
 <title>Kaus Lab — teste hero</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Martian+Mono:wght@300..600&display=swap">
 <style>
-:root{--musgo-0:#151A10;--musgo-1:#1E2517;--linha:#9AA374;--cobre:#C8834F;--papel:#F2EFE8;--muted:#A9A89A;
+:root{--musgo-0:#11150D;--musgo-1:#1B2115;--musgo:#5B6A3C;--linha:#9AA374;--cobre:#C8834F;--oxido:#A8382A;--papel:#F2EFE8;--muted:#A9A89A;
   --display:"Archivo","Arial Black",sans-serif;--mono:"Martian Mono",ui-monospace,monospace}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{overflow-x:clip}
-body{background:var(--musgo-1);color:var(--papel);font:400 13px/1.6 var(--mono)}
+body{background:var(--musgo-0);color:var(--papel);font:400 13px/1.6 var(--mono)}
 .d{font-family:var(--display);font-weight:850;font-stretch:118%;text-transform:uppercase;letter-spacing:-.045em}
 .lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.hero{position:relative;height:100vh;min-height:640px;overflow:hidden}
-canvas{position:absolute;inset:0;width:100%;height:100%}
-.grid{position:absolute;inset:0;pointer-events:none;opacity:.07;
+
+.hero{position:relative;height:100svh;min-height:680px;overflow:hidden;padding:28px clamp(16px,4vw,56px);
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto 1fr auto;column-gap:40px;
+  background:
+    radial-gradient(40% 50% at 70% 48%,rgba(168,56,42,.55),transparent 70%),
+    radial-gradient(30% 35% at 82% 30%,rgba(200,131,79,.35),transparent 70%),
+    radial-gradient(60% 70% at 20% 100%,rgba(91,106,60,.45),transparent 70%),
+    linear-gradient(160deg,var(--musgo-1),var(--musgo-0) 70%)}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.08;
   background-image:linear-gradient(var(--linha) 1px,transparent 1px),linear-gradient(90deg,var(--linha) 1px,transparent 1px);
-  background-size:24px 24px}
-svg.ov{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.ui{position:absolute;inset:0;padding:28px clamp(16px,4vw,56px);display:grid;grid-template-rows:auto 1fr auto;pointer-events:none}
-.ui a,.ui .tag{pointer-events:auto}
-header{display:flex;justify-content:space-between;border-bottom:1px solid rgba(154,163,116,.25);padding-bottom:14px}
-.copy{align-self:end;max-width:640px;padding-bottom:6vh}
-h1{font-size:clamp(40px,6.4vw,112px);line-height:.86;margin:16px 0 22px}
-h1 em{font-style:normal;color:var(--cobre)}
-.lead{max-width:44ch;color:#D9D6CC}
-.tag{position:absolute;display:flex;flex-direction:column;gap:2px;padding:12px 16px;min-width:170px;color:var(--papel);text-decoration:none;
-  background:rgba(242,239,232,.06);border:1px solid rgba(242,239,232,.18);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:background .3s,color .3s}
-.tag b{font:850 28px/1 var(--display);font-stretch:118%;letter-spacing:-.04em}
-.tag:hover{background:var(--cobre);color:var(--musgo-0)}
-.tag:hover .lbl{color:var(--musgo-0)}
-.tag.core{background:none;border:0;backdrop-filter:none;min-width:0;padding:0}
-@media (max-width:820px){.copy{padding-bottom:2vh}.tag{min-width:130px;padding:10px 12px}.tag b{font-size:22px}}
+  background-size:24px 24px;mask-image:radial-gradient(70% 70% at 60% 50%,#000,transparent)}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.18;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+header{grid-column:1/-1;position:relative;z-index:3;display:flex;justify-content:space-between;border-bottom:1px solid rgba(154,163,116,.25);padding-bottom:14px}
+header a{color:var(--papel);text-decoration:none}
+
+.stage{position:absolute;z-index:1;left:62%;top:47%;width:min(84vh,58vw);aspect-ratio:1;transform:translate(-50%,-50%)}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y}
+.stage svg{position:absolute;inset:-12%;width:124%;height:124%;pointer-events:none}
+.stage .tick{position:absolute;font-size:10px;letter-spacing:.08em;color:var(--linha)}
+
+.copy{grid-column:1;grid-row:3;position:relative;z-index:2;align-self:end}
+h1{font-size:clamp(40px,5.2vw,96px);line-height:.86;margin:16px 0 22px}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--cobre),var(--oxido));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{max-width:42ch;color:#D9D6CC}
+
+.cards{grid-column:2;grid-row:3;position:relative;z-index:2;align-self:end;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{position:relative;display:flex;flex-direction:column;gap:18px;padding:16px;color:var(--papel);text-decoration:none;overflow:hidden;
+  background:linear-gradient(150deg,rgba(242,239,232,.14),rgba(242,239,232,.03));border:1px solid rgba(242,239,232,.2);
+  backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);transition:border-color .4s,transform .4s}
+.card::before{content:"";position:absolute;inset:0;opacity:0;transition:opacity .5s;background:var(--g)}
+.card>*{position:relative}
+.card .row{display:flex;justify-content:space-between;align-items:baseline}
+.card b{font:850 44px/.8 var(--display);font-stretch:118%;letter-spacing:-.05em}
+.card .arrow{transition:transform .4s}
+.card:hover{border-color:rgba(242,239,232,.5);transform:translateY(-4px)}
+.card:hover::before{opacity:.55}
+.card:hover .arrow{transform:translate(4px,-4px)}
+.card .sw{height:3px;background:var(--g)}
+#pf{--g:linear-gradient(90deg,var(--musgo),var(--cobre))}
+#mu{--g:linear-gradient(90deg,var(--cobre),var(--oxido))}
+
+@media (max-width:820px){
+  .hero{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto auto;row-gap:22px;height:auto;min-height:100svh;
+    background:
+      radial-gradient(70% 35% at 50% 28%,rgba(168,56,42,.55),transparent 70%),
+      radial-gradient(50% 25% at 70% 18%,rgba(200,131,79,.35),transparent 70%),
+      linear-gradient(170deg,var(--musgo-1),var(--musgo-0) 70%)}
+  .stage{position:relative;left:auto;top:auto;transform:none;width:min(78vw,420px);justify-self:center;grid-row:2;margin:28px 0 12px}
+  .copy{grid-row:3}.cards{grid-column:1;grid-row:4}
+  .card b{font-size:36px}
+}
 </style>
 </head>
 <body>
 <section class="hero">
-  <canvas id="c"></canvas>
-  <div class="grid"></div>
-  <svg class="ov" id="ov"></svg>
-  <div class="ui">
-    <header><span class="lbl" style="color:var(--papel)">Ks · Kaus Lab</span><span class="lbl">Prancha 01</span><a class="lbl" style="color:var(--papel);text-decoration:none" href="#contato">Contato ↗</a></header>
-    <div></div>
-    <div class="copy">
-      <span class="lbl">00 — Quem escreve</span>
-      <h1 class="d">Sara<br>Ribi<em>kaus</em>kas</h1>
-      <p class="lead">[A DEFINIR] A Kaus Lab é o meu laboratório: o lugar onde os projetos que eu crio se encontram.</p>
-    </div>
+  <header><span class="lbl" style="color:var(--papel)">Ks · Kaus Lab</span><span class="lbl">Prancha 01</span><a class="lbl" href="#contato" style="color:var(--papel)">Contato ↗</a></header>
+
+  <div class="stage" aria-hidden="true">
+    <svg viewBox="0 0 100 100">
+      <g fill="none" stroke="#9AA374" stroke-width=".18">
+        <circle cx="50" cy="50" r="48" stroke-dasharray=".8 1.2" opacity=".6"/>
+        <circle cx="50" cy="50" r="38" opacity=".35"/>
+        <line x1="50" y1="0" x2="50" y2="6"/><line x1="50" y1="94" x2="50" y2="100"/>
+        <line x1="0" y1="50" x2="6" y2="50"/><line x1="94" y1="50" x2="100" y2="50"/>
+      </g>
+      <g fill="#F2EFE8"><circle cx="50" cy="2" r=".7"/><circle cx="98" cy="50" r=".7"/><circle cx="2" cy="50" r=".7"/><circle cx="50" cy="98" r=".7"/></g>
+    </svg>
+    <span class="tick" style="left:56%;top:-9%">Ks — amostra 00</span>
+    <span class="tick" style="right:-8%;top:56%">↻ arraste</span>
+    <canvas id="c"></canvas>
   </div>
-  <a class="tag" id="t-pf" href="#portfolio"><span class="lbl">01 · Projeto</span><b>Pf</b><span>Portfólio ↗</span></a>
-  <a class="tag" id="t-mu" href="#musica"><span class="lbl">02 · Projeto</span><b>Mu</b><span>Música ↗</span></a>
-  <div class="tag core" id="t-ks"><span class="lbl">Núcleo · Ks</span></div>
+
+  <div class="copy">
+    <span class="lbl">00 — Quem escreve</span>
+    <h1 class="d">Sara<br>Ribi<em>kaus</em>kas</h1>
+    <p class="lead">[A DEFINIR] A Kaus Lab é o meu laboratório: o lugar onde os projetos que eu crio se encontram.</p>
+  </div>
+
+  <nav class="cards" aria-label="Projetos">
+    <a class="card" id="pf" href="#portfolio" data-tone="0">
+      <div class="row lbl"><span>01</span><span class="arrow">↗</span></div>
+      <div class="row"><b>Pf</b><span>Portfólio</span></div>
+      <div class="sw"></div>
+    </a>
+    <a class="card" id="mu" href="#musica" data-tone="1">
+      <div class="row lbl"><span>02</span><span class="arrow">↗</span></div>
+      <div class="row"><b>Mu</b><span>Música</span></div>
+      <div class="sw"></div>
+    </a>
+  </nav>
 </section>
 
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
 <script type="module">
 import * as THREE from 'three';
-import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
-
 const canvas=document.getElementById('c');
-const r=new THREE.WebGLRenderer({canvas,antialias:true,preserveDrawingBuffer:true});
+const r=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,preserveDrawingBuffer:true});
 r.setPixelRatio(Math.min(devicePixelRatio,2));
-r.toneMapping=THREE.ACESFilmicToneMapping;r.toneMappingExposure=1.05;
-const scene=new THREE.Scene();scene.background=new THREE.Color('#1E2517');
-scene.environment=new THREE.PMREMGenerator(r).fromScene(new RoomEnvironment(),.04).texture;
-const cam=new THREE.PerspectiveCamera(30,1,.1,100);cam.position.set(0,0,11);
+const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(30,1,.1,50);cam.position.z=6.2;
 
-// fundo com luz difusa para o vidro refratar
-const glowTex=(()=>{const c=document.createElement('canvas');c.width=c.height=256;const g=c.getContext('2d');
-  const gr=g.createRadialGradient(128,128,0,128,128,128);gr.addColorStop(0,'rgba(200,131,79,.55)');gr.addColorStop(.45,'rgba(91,106,60,.35)');gr.addColorStop(1,'rgba(30,37,23,0)');
-  g.fillStyle=gr;g.fillRect(0,0,256,256);return new THREE.CanvasTexture(c)})();
-const glow=new THREE.Mesh(new THREE.PlaneGeometry(14,14),new THREE.MeshBasicMaterial({map:glowTex,transparent:true,depthWrite:false}));
-glow.position.z=-5;scene.add(glow);
-const ringMat=new THREE.MeshBasicMaterial({color:'#9AA374',transparent:true,opacity:.35});
-for(const [rad,y] of [[2.6,0],[3.6,0]]){const m=new THREE.Mesh(new THREE.TorusGeometry(rad,.006,8,160),ringMat);m.position.z=-3;scene.add(m)}
+const noise=`
+vec4 perm(vec4 x){return mod(((x*34.)+1.)*x,289.);}
+vec4 tis(vec4 r){return 1.79284291400159-.85373472095314*r;}
+float snoise(vec3 v){const vec2 C=vec2(1./6.,1./3.);const vec4 D=vec4(0.,.5,1.,2.);
+vec3 i=floor(v+dot(v,C.yyy));vec3 x0=v-i+dot(i,C.xxx);vec3 g=step(x0.yzx,x0.xyz);vec3 l=1.-g;vec3 i1=min(g.xyz,l.zxy);vec3 i2=max(g.xyz,l.zxy);
+vec3 x1=x0-i1+C.xxx;vec3 x2=x0-i2+C.yyy;vec3 x3=x0-D.yyy;i=mod(i,289.);
+vec4 p=perm(perm(perm(i.z+vec4(0.,i1.z,i2.z,1.))+i.y+vec4(0.,i1.y,i2.y,1.))+i.x+vec4(0.,i1.x,i2.x,1.));
+float n_=1./7.;vec3 ns=n_*D.wyz-D.xzx;vec4 j=p-49.*floor(p*ns.z*ns.z);vec4 x_=floor(j*ns.z);vec4 y_=floor(j-7.*x_);
+vec4 x=x_*ns.x+ns.yyyy;vec4 y=y_*ns.x+ns.yyyy;vec4 h=1.-abs(x)-abs(y);vec4 b0=vec4(x.xy,y.xy);vec4 b1=vec4(x.zw,y.zw);
+vec4 s0=floor(b0)*2.+1.;vec4 s1=floor(b1)*2.+1.;vec4 sh=-step(h,vec4(0.));vec4 a0=b0.xzyw+s0.xzyw*sh.xxyy;vec4 a1=b1.xzyw+s1.xzyw*sh.zzww;
+vec3 p0=vec3(a0.xy,h.x);vec3 p1=vec3(a0.zw,h.y);vec3 p2=vec3(a1.xy,h.z);vec3 p3=vec3(a1.zw,h.w);
+vec4 norm=tis(vec4(dot(p0,p0),dot(p1,p1),dot(p2,p2),dot(p3,p3)));p0*=norm.x;p1*=norm.y;p2*=norm.z;p3*=norm.w;
+vec4 m=max(.6-vec4(dot(x0,x0),dot(x1,x1),dot(x2,x2),dot(x3,x3)),0.);m=m*m;
+return 42.*dot(m*m,vec4(dot(p0,x0),dot(p1,x1),dot(p2,x2),dot(p3,x3)));}`;
 
-const glass=(rough=.04)=>new THREE.MeshPhysicalMaterial({color:'#ffffff',transmission:1,roughness:rough,thickness:.9,ior:1.5,
-  attenuationColor:new THREE.Color('#DDE6C6'),attenuationDistance:9,clearcoat:1,clearcoatRoughness:.05,specularIntensity:1});
-const copper=new THREE.MeshPhysicalMaterial({color:'#C8834F',metalness:1,roughness:.22,clearcoat:.6});
+const U={uT:{value:0},uM:{value:new THREE.Vector3(0,0,1)},uPush:{value:0},uTone:{value:.5}};
+const mat=new THREE.ShaderMaterial({uniforms:U,vertexShader:noise+`
+uniform float uT,uPush;uniform vec3 uM;varying vec3 vN,vP;varying float vD;
+float disp(vec3 p){float d=snoise(p*.85+vec3(0.,uT*.2,uT*.14))*.26+snoise(p*1.7-uT*.25)*.05;
+  d+=pow(max(dot(normalize(p),uM),0.),6.)*uPush*.55;return d;}
+vec3 dp(vec3 p){vec3 n=normalize(p);return n*(1.+disp(n));}
+void main(){vec3 p=dp(position);vec3 n=normalize(position);
+  vec3 t=normalize(cross(n,abs(n.y)<.99?vec3(0.,1.,0.):vec3(1.,0.,0.)));vec3 b=cross(n,t);float e=.01;
+  vec3 pt=dp(n+t*e),pb=dp(n+b*e);vN=normalize(normalMatrix*normalize(cross(pt-p,pb-p)));
+  vD=disp(n);vec4 mv=modelViewMatrix*vec4(p,1.);vP=mv.xyz;gl_Position=projectionMatrix*mv;}`,
+fragmentShader:`
+uniform float uTone,uT;varying vec3 vN,vP;varying float vD;
+vec3 musgo=vec3(.16,.2,.11),cobre=vec3(.78,.51,.31),oxido=vec3(.66,.22,.16),papel=vec3(.95,.94,.91);
+void main(){vec3 N=normalize(vN),V=normalize(-vP);float ndv=max(dot(N,V),0.);float fr=pow(1.-ndv,2.2);
+  float g=clamp(N.y*.5+.5+vD*.8,0.,1.);float hx=clamp(N.x*.5+.5+vD*.6,0.,1.);
+  vec3 warm=mix(cobre,oxido,uTone);
+  vec3 base=mix(warm,mix(oxido,cobre,uTone*.6),smoothstep(.3,.8,hx));base=mix(musgo*1.4,base,smoothstep(.1,.6,g));base=mix(base,vec3(.85,.62,.45),smoothstep(.8,1.,g)*.5);
+  vec3 R=reflect(-V,N);
+  float strip=smoothstep(.55,.75,R.y)*smoothstep(1.,.8,R.y);float side=smoothstep(.6,.95,R.x);
+  vec3 env=papel*(strip*1.1+side*.5);
+  vec3 L=normalize(vec3(.5,.8,.6));float sp=pow(max(dot(reflect(-L,N),V),0.),60.);
+  vec3 col=base*(.35+.75*max(dot(N,L),0.))+env*(.25+fr*.9)+papel*sp*1.2+warm*fr*.5;
+  col=mix(col,musgo*.6,smoothstep(.2,1.,-N.y)*.35);
+  gl_FragColor=vec4(pow(col,vec3(.95)),1.);}`});
+const blob=new THREE.Mesh(new THREE.IcosahedronGeometry(1.25,64),mat);scene.add(blob);
 
-const group=new THREE.Group();scene.add(group);
-const nodes={
-  ks:{p:[0,0,0],s:.95,m:copper},
-  pf:{p:[-1.9,1.25,.4],s:.85,m:glass()},
-  mu:{p:[1.8,-1.35,.3],s:.85,m:glass()},
-  a:{p:[1.55,1.6,-.6],s:.5,m:glass(.35)},
-  b:{p:[-1.5,-1.55,-.4],s:.45,m:glass(.35)},
-  c:{p:[2.9,.35,-1],s:.32,m:glass()},
-  d:{p:[-2.9,-.1,-.8],s:.28,m:glass(.35)}};
-const sph=new THREE.SphereGeometry(1,96,96);
-for(const k in nodes){const n=nodes[k];const m=new THREE.Mesh(sph,n.m);m.position.set(...n.p);m.scale.setScalar(n.s);group.add(m);n.mesh=m}
-const bondMat=glass(.08);
-const bond=(a,b)=>{const A=new THREE.Vector3(...nodes[a].p),B=new THREE.Vector3(...nodes[b].p);
-  const len=A.distanceTo(B);const g=new THREE.CylinderGeometry(.07,.07,len,32);const m=new THREE.Mesh(g,bondMat);
-  m.position.copy(A).add(B).multiplyScalar(.5);m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),B.clone().sub(A).normalize());group.add(m)};
-[['ks','pf'],['ks','mu'],['ks','a'],['ks','b'],['mu','c'],['pf','d']].forEach(([a,b])=>bond(a,b));
+function size(){const w=canvas.clientWidth;r.setSize(w,w,false);cam.aspect=1;cam.updateProjectionMatrix()}
+new ResizeObserver(size).observe(canvas);size();
 
-const key=new THREE.DirectionalLight('#fff4e6',2.2);key.position.set(4,5,6);scene.add(key);
+// interação: o objeto incha na direção do cursor; arrastar gira
+let target=new THREE.Vector3(0,0,1),push=0,pushT=0,tone=.5,toneT=.5,rotY=0,vel=.0025,drag=null;
+addEventListener('pointermove',e=>{const b=canvas.getBoundingClientRect();
+  const x=((e.clientX-b.left)/b.width-.5)*2,y=-((e.clientY-b.top)/b.height-.5)*2;const d=Math.hypot(x,y);
+  target.set(x,y,.9).normalize();pushT=d<1.6?1-Math.min(d/1.6,1)*.6:0;
+  if(drag!==null){vel=(e.clientX-drag)*.0006;drag=e.clientX}});
+canvas.addEventListener('pointerdown',e=>{drag=e.clientX});addEventListener('pointerup',()=>{drag=null});
+document.querySelectorAll('.card').forEach(c=>{c.addEventListener('pointerenter',()=>{toneT=+c.dataset.tone;pushT=1});
+  c.addEventListener('pointerleave',()=>{toneT=.5})});
 
-// callouts técnicos ligados às esferas
-const ov=document.getElementById('ov'),NS='http://www.w3.org/2000/svg';
-const tags=[['pf','t-pf',-1],['mu','t-mu',1],['ks','t-ks',1]].map(([n,id,side])=>{
-  const line=document.createElementNS(NS,'polyline');line.setAttribute('fill','none');line.setAttribute('stroke',n==='ks'?'#C8834F':'#9AA374');
-  line.setAttribute('stroke-width','1');if(n!=='ks')line.setAttribute('stroke-dasharray','3 4');ov.appendChild(line);
-  const dot=document.createElementNS(NS,'circle');dot.setAttribute('r','3.5');dot.setAttribute('fill',n==='ks'?'#C8834F':'#F2EFE8');ov.appendChild(dot);
-  return {n,el:document.getElementById(id),side,line,dot}});
-
-let W,H,mx=0,my=0;
-function size(){W=innerWidth;H=canvas.parentElement.clientHeight;r.setSize(W,H,false);cam.aspect=W/H;cam.updateProjectionMatrix();
-  const mob=W<820;group.position.set(mob?0:1.9,mob?1.4:.35,0);group.scale.setScalar(mob?.55:.72)}
-addEventListener('resize',size);size();
-addEventListener('pointermove',e=>{mx=e.clientX/W-.5;my=e.clientY/H-.5});
-
-const v=new THREE.Vector3(),t0=performance.now();
-function frame(){
-  const t=(performance.now()-t0)/1000;
-  group.rotation.y=Math.sin(t*.18)*.35+mx*.4;group.rotation.x=Math.sin(t*.13)*.12+my*.25;
-  glow.position.x=group.position.x;glow.position.y=group.position.y;
-  r.render(scene,cam);
-  for(const tg of tags){
-    nodes[tg.n].mesh.getWorldPosition(v);const rad=nodes[tg.n].s*group.scale.x;v.project(cam);
-    const x=(v.x+1)/2*W,y=(1-v.y)/2*H;
-    const ex=x+tg.side*(W<820?90:170),ey=y-(W<820?50:70);
-    const bw=tg.el.offsetWidth,bh=tg.el.offsetHeight;
-    let lx=Math.min(Math.max(16,tg.side<0?ex-bw:ex),W-bw-16);const ex2=tg.side<0?lx+bw:lx;tg.el.style.left=lx+'px';tg.el.style.top=(ey-bh/2)+'px';
-    const sx=x+tg.side*14,sy=y-14;
-    tg.line.setAttribute('points',`${sx},${sy} ${ex2-tg.side*30},${ey} ${ex2},${ey}`);
-    tg.dot.setAttribute('cx',sx);tg.dot.setAttribute('cy',sy);
-  }
-  requestAnimationFrame(frame)}
-frame();
+const t0=performance.now();
+(function frame(){const t=(performance.now()-t0)/1000;
+  push+=(pushT-push)*.06;tone+=(toneT-tone)*.05;vel+=(.0025-vel)*.02;rotY+=vel;
+  const inv=blob.matrixWorld.clone().invert();U.uM.value.copy(target).transformDirection(inv);
+  U.uT.value=t;U.uPush.value=push;U.uTone.value=tone;
+  blob.rotation.y=rotY;blob.rotation.x=Math.sin(t*.2)*.2;
+  r.render(scene,cam);requestAnimationFrame(frame)})();
 </script>
 </body>
 </html>
