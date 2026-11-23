@@ -14,9 +14,9 @@ Página única de apresentação da Kaus Lab: quem sou, por que a Kaus Lab exist
 
 ## Domínio próprio
 
-1. Crie um arquivo `CNAME` na raiz do repo com o domínio, uma linha só (ex.: `kauslab.com`).
+1. Crie um arquivo `CNAME` na raiz do repo com o domínio, uma linha só (`kauslab.com.br`, já criado).
 2. No painel onde o domínio foi comprado, crie os registros DNS:
-   - Domínio raiz (`kauslab.com`): quatro registros **A** apontando para
+   - Domínio raiz (`kauslab.com.br`): quatro registros **A** apontando para
      `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
    - `www`: um registro **CNAME** apontando para `<usuario>.github.io`
 3. Em **Settings → Pages**, preencha o domínio e marque **Enforce HTTPS** quando liberar.
